@@ -1,0 +1,259 @@
+*{
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+}
+
+body{
+    display:flex;
+    overflow-x: hidden;
+    /* background-image: url("background7.jpg"); */
+    /* background-size: cover; */
+    /* background-clip: border-box; */
+    /* background-repeat: no-repeat; */
+    /* background-attachment: fixed; */
+}
+
+#sidebar{
+    height: 100%;
+    width: 20vw;
+    position: fixed;
+    background-color: #b81024;
+    
+}
+
+#main{
+    position: absolute;
+    margin-left: 20vw;
+    width: 80vw;
+    background-color: #0f0f0f;
+/*    padding-bottom: 10px;*/
+    /* width: 100%; */
+    
+    /* background: rgba( 255, 255, 255, 0.40 ); */
+    /* box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 ); */
+    /* backdrop-filter: blur( 5.0px ); */
+    /* -webkit-backdrop-filter: blur( 5.0px ); */
+    /* border-top-left-radius: 20px; */
+    /* border-bottom-left-radius: 20px; */
+    
+    
+}
+
+#vector1{
+    position: absolute;
+    right: 3vw;
+    height: 40vh;
+    top: 5vh;
+}
+
+#heading{
+    font-size: 3.5rem;
+    margin-top: 8vh;
+    margin-left: 5vw;
+    color: blanchedalmond;
+    /* background-color: red; */
+}
+
+.sm-section{
+    margin-top: 5vh;
+    margin-left: 5vw;
+    /*background-color: royalblue;*/
+}
+
+.d1,.d2,.d3{
+    display: flex;
+    height: 8vh;
+    width:12vw;
+    font-size: 1.5rem;
+    background-color: blanchedalmond;
+    margin-right: 3vh;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+}
+
+.d1{
+    
+    width:14vw;
+}
+
+.d3{
+    width:16vw;
+    margin-top: 2.5vh;
+}
+
+.fa-user, .fa-book, .fa-star{
+    margin-right: 0.5vw;
+}
+
+#sec1, #sec2, #sec3, #sec4, #sec5, #sec6{
+    margin-left: 5vw; 
+    margin-top: 8vh;
+    /* font-size: 2.6rem; */
+}
+
+#sec2{
+    margin-top: 2vh;
+}
+
+#head1, #head2, #head3, #head4, #head5, #head6{
+    font-size: 2.6rem;
+    color: blanchedalmond;
+}
+
+.g1-1{
+    width: 35vw;
+    margin-top: 5vh;
+    padding: 10px;
+}
+
+.g1-1:last-child{
+    margin-left: 1vw;
+}
+hr{
+    width: 96%;
+    color: blanchedalmond;
+}
+
+#logo{
+    width: 20vw;
+    margin-top: 4vh;
+}
+
+#nav{
+    display: flex;
+    justify-content: center;
+    height:83.8%;
+}
+
+ul{
+    list-style: none;
+}
+
+a{
+    display: block;
+    height:10vh;
+    width:15vw;
+    font-size: 1.4rem;
+    margin-top: 4vh;
+    background: rgba( 255, 255, 255, 0.40 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    text-align: center;
+    color: black;
+    border-radius: 30px;
+}
+
+a:hover{
+    background: rgba( 255, 255, 255, 0.60 );
+    height: 10.5vh;
+    box-shadow: 0 8px 32px 0 rgb(26, 27, 34);
+    transition: 0.2s;
+    /* width: 15.5vw; */
+}
+
+.menu:first-child{
+    margin-top: 3vh;
+}
+
+.trend_box{
+    display: flex; 
+    width:96%;
+    background-color:rgb(31, 41, 55); 
+    margin-top:1vh; 
+    height:45vh; 
+    justify-content:space-between;
+    padding:3vw;
+    border-radius:25px;
+}
+
+.tb_title {
+    font-size: 15px; 
+    padding:5px;
+    margin-top:10px;
+    text-align: center;
+    background-color:#b81024; 
+    border-radius:20px;
+}
+
+.tb_rating{
+    width:40px;
+    height:20px;
+    margin-top:2vh ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius:20px;
+    background-color:#FFFF66;
+    color:black;
+}
+
+.card{
+     padding:10px;
+     background-color: #0f0f0f;
+     color: white;
+     font-weight: 400;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     font-size:1.3rem;
+    height: 20vh;
+    border-radius: 20px;
+    box-shadow: 4px 4px 10px rgba(0,0,0,6);
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+.modebar{
+    display: none !important;
+}
+
+label{
+    font-family: "Poppins", sans-serif;
+    font-size: medium;
+    font-weight: 900;
+    color: blanchedalmond;
+}
+
+select,input{
+    height: 5vh;
+    font-family: "Poppins", sans-serif;
+    font-size: medium;
+    font-weight: 900;
+    background-color: blanchedalmond;
+    border-radius: 3px;
+    outline: none;
+}
+
+select{
+    width:50vw;  
+}
+
+input{
+    width:10vw;
+    border: none;
+    cursor: pointer;
+}
+
+form{
+    margin-top: 3vh;
+}
+
+form>p{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2vh;
+    width:95%;
+}
+  
+#sec5{
+    margin-bottom: 4vh;
+}

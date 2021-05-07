@@ -1,0 +1,341 @@
+{% extends "template.html" %} {% block title %}Index{% endblock %} 
+
+{% block script %}
+<script>
+    console.log("{{author.0}}");
+    //sidebar functionality
+    //var menuContainer = document.getElementById("list");
+    //var menus = menuContainer.getElementsByClassName("menu");
+    //for (var i = 0; i < menus.length; i++) {
+    //  menus[i].addEventListener("click", function () {
+    //    var current = document.getElementsByClassName("active");
+    //    current[0].classList.remove("active");
+    //    this.classList.add("active");
+    //  });
+    //}
+ 
+    Chart.defaults.global.defaultFontColor = "white";
+
+    //chart 1 (rating distribution)
+    var ctx = document.getElementById("myChart").getContext("2d");
+      var scatterChart = new Chart(ctx, {
+        type: "scatter",
+        data: {
+          datasets: [
+            {
+              label: "Rating Distribution",
+              backgroundColor: "rgb(85,26,139)",
+              borderColor: "rgb(255, 99, 132)",
+              data: [
+              {% for index, values in cnt.items %}
+              {
+                x: {{index|safe}},
+                y: {{values|safe}}
+            },
+            {% endfor %}
+
+              ],
+              borderColor: "rgb(255, 99, 132)",
+              borderWidth: 1.5,
+              pointRadius: 0,
+              pointHoverRadius: 5,
+              fill: true,
+              tension: 0,
+              showLine: true,
+            },
+          ],
+        },
+        options: {
+          maintainAspectRatio: false,
+          scales: {
+            xAxes: [
+              {
+                type: "linear",
+                position: "bottom",
+                ticks: {
+                  min: 2.5,
+                  max: 5,
+                },
+                gridLines: {
+                  color: "#888",
+                  drawOnChartArea: true,
+                },
+              },
+            ],
+            yAxes: [
+              {
+                ticks: {
+                  min: 0,
+                  max: 160,
+                  padding: 10,
+                },
+                gridLines: {
+                  color: "#888",
+                  drawOnChartArea: true,
+                },
+              },
+            ],
+          },
+          legend: {
+            labels: {
+              fontSize: 20,
+            },
+          },
+        },
+      });
+
+       //chart 2 (books published over year)
+       var ctx = document.getElementById("myChart1").getContext("2d");
+       var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'bar',
+    
+        // The data for our dataset
+        data: {
+            labels: {{cnt_y.index.tolist|safe}},
+            datasets: [{
+                label: 'Yearly Distribution',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: {{cnt_y.values.tolist|safe}}
+            }]
+        },
+        
+        // Configuration options go here
+        options: {
+          maintainAspectRatio: false,
+          scales: {
+            xAxes: [
+              {
+                
+                
+                ticks: {
+                 
+                  maxTicksLimit: 7,
+                },
+                gridLines: {
+                  color: "#888",
+                  drawOnChartArea: true,
+                },
+                
+              },
+            ],
+            yAxes: [
+              {
+                ticks: {
+                  min: 0,
+                  max: 500,
+                  
+                  stepSize: 100,
+                  padding: 10,
+                },
+                gridLines: {
+                  color: "#888",
+                  drawOnChartArea: true,
+                },
+              },
+            ],
+          },
+          legend: {
+            labels: {
+              fontSize: 20,
+            },
+          },
+        }
+    });
+       console.log("hello")
+       
+       
+       //user graph
+       //city
+       var ctx = document.getElementById("myChart2").getContext("2d");
+       var chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: {{users_city.city.tolist|safe}},
+            datasets: [{
+                label: 'Top User Cities',
+                backgroundColor: "rgb(85,26,139)",
+              borderColor: "rgb(255, 99, 132)",
+              borderWidth:2,
+                data: {{users_city.count.tolist|safe}}
+            }]
+        },
+        options: {
+          maintainAspectRatio: false,
+          scales: {
+            yAxes: [
+              {
+                gridLines: {
+                  color: "#888",
+                  drawOnChartArea: true,
+                },
+              },
+            ],
+          },
+          legend: {
+            labels: {
+              fontSize: 20,
+            },
+          },
+        }
+    });
+       console.log("{{users_city.city.tolist|safe}}");
+       console.log("{{users_city.count.tolist|safe}}");
+      //state
+      var ctx = document.getElementById("myChart3").getContext("2d");
+      var chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: {{users_state.state.tolist|safe}},
+            datasets: [{
+                label: 'Top User States',
+                backgroundColor: "rgb(255, 99, 132)",
+              borderColor: "rgb(85,26,139)",
+              borderWidth:2,
+                data: {{users_state.count.tolist|safe}}
+            }]
+        },
+        options: {
+          maintainAspectRatio: false,
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  min: 700,
+                  max: 3700,
+                  stepSize: 600,
+                },
+                gridLines: {
+                  color: "#888",
+                  drawOnChartArea: true,
+                },
+              },
+            ],
+          },
+          legend: {
+            labels: {
+              fontSize: 20,
+            },
+          },
+        }
+    }); 
+
+      console.log("{{users_state.state.tolist|safe}}");
+      console.log("{{users_state.count.tolist|safe}}");
+      //country
+      var ctx = document.getElementById("myChart4").getContext("2d");
+       var chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: {{users_country.country.tolist|safe}},
+            datasets: [{
+                label: 'Top User Countries',
+                backgroundColor: "#b81024",
+              borderColor: "#ffff80",
+              borderWidth:2,
+                data: {{users_country.count.tolist|safe}}
+            }]
+        },
+        options: {
+          maintainAspectRatio: false,
+          scales: {
+            yAxes: [
+              {
+                gridLines: {
+                  color: "#888",
+                  drawOnChartArea: true,
+                },
+              },
+            ],
+          },
+          legend: {
+            labels: {
+              fontSize: 20,
+            },
+          },
+        }
+    });
+
+      console.log("{{users_country.country.tolist|safe}}");
+      console.log("{{users_country.count.tolist|safe}}");
+      //age
+      var ctx = document.getElementById("myChart5").getContext("2d");
+      var chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: {{cnt_a.index.tolist|safe}},
+            datasets: [{
+                label: 'User Age Distribution',
+                backgroundColor: "#ffff80",
+              borderColor: "#b81024",
+              borderWidth:2,
+                data: {{cnt_a.values.tolist|safe}}
+            }]
+        },
+        options: {
+          maintainAspectRatio: false,
+          scales: {
+            yAxes: [
+              {
+                gridLines: {
+                  color: "#888",
+                  drawOnChartArea: true,
+                },
+              },
+            ],
+          },
+          legend: {
+            labels: {
+              fontSize: 20,
+            },
+          },
+        }
+    });
+
+      
+      console.log("{{cnt_a.index.tolist|safe}}");
+      console.log("{{cnt_a.values.tolist|safe}}");
+
+      {% if submitbutton == "Submit" %} 
+      {% if authors_perf == 'Over The Year Performance' %}
+    //authors over the year performance
+    var ctx = document.getElementById("myChart6").getContext("2d");
+      var chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: {{cnt1.original_publication_year.tolist|safe}},
+            datasets: [{
+                label: 'Over The Year Performance',
+                backgroundColor: "rgb(255, 99, 132)",
+              borderColor: "rgb(85,26,139)",
+              borderWidth:2,
+                data: {{cnt1.average_rating.tolist|safe}}
+            }]
+        },
+        options: {
+          maintainAspectRatio: false,
+          scales: {
+            yAxes: [
+              {
+                
+                gridLines: {
+                  color: "#888",
+                  drawOnChartArea: true,
+                },
+              },
+            ],
+          },
+          legend: {
+            labels: {
+              fontSize: 20,
+            },
+          },
+        }
+    }); 
+    {% endif %}
+          {% endif %}
+          
+          
+</script>
+{% endblock %}

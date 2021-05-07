@@ -1,0 +1,221 @@
+{% load static %} 
+<html>
+  <head>
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{% static 'styles/style.css' %}" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://use.fontawesome.com/2f23960495.js"></script>
+    <style>
+      
+    </style>
+  </head>
+  <body>
+    <div id="sidebar">
+      <img
+        src="{% static 'images/abc-removebg-preview.png' %}"
+        alt="logo"
+        id="logo"
+      />
+      <div id="nav">
+        <ul id="list">
+          <li><a href="#sec1" class="menu">Distribution of Books</a></li>
+          <li><a href="#sec2" class="menu">Trending Books</a></li>
+          <li><a href="#sec3" class="menu">Authors</a></li>
+          <li><a href="#sec4" class="menu">Users</a></li>
+          <li><a href="#sec5" class="menu">Books and Authors details</a></li>
+          <li><a href="#sec6" class="menu">Sentiment Analysis</a></li>
+        </ul>
+      </div>
+    </div>
+    <div id="main">
+      <img
+        src="{% static 'images/vector-removebg1.png' %}"
+        alt="vector1"
+        id="vector1"
+      />
+      <h1 id="heading">Dashboard</h1>
+      <div class="sm-section">
+        <div style="display: flex">
+          <div class="d1">
+            <i class="fa fa-user" aria-hidden="true"></i>Author &nbsp&nbsp&nbsp
+            1M
+          </div>
+          <div class="d2">
+            <i class="fa fa-book" aria-hidden="true"></i>Books &nbsp&nbsp 3M
+          </div>
+        </div>
+        <div style="display: flex">
+          <div class="d3">
+            <i class="fa fa-star" aria-hidden="true"></i>Rating count&nbsp&nbsp
+            2M
+          </div>
+          <div class="d3">
+            <i class="fa fa-star" aria-hidden="true"></i>Rating count&nbsp&nbsp
+            2M
+          </div>
+        </div>
+      </div>
+      <div id="sec1">
+        <h1 id="head1">
+          Distribution of Books
+          <hr />
+        </h1>
+        <div style="display: flex">
+          <div class="g1-1" style="height:265px;">
+            <canvas id="myChart"></canvas>
+          </div>
+          <div class="g1-1" style="height:275px;">
+            <canvas id="myChart1"></canvas>
+          </div>
+        </div>
+      </div>
+      <div id="sec2">
+        <h1 id="head2">
+          Trending Books
+          <hr />
+        </h1>
+        <div >
+          <h1 style="font: size 2rem; color:#b81024; margin-top:1vh" class="sub_head">Based on popularity</h1>
+          <div class="trend_box">
+            <div><img src="{{ img_pop.0 }}" alt="img 1" style="height: 10rem; width:9rem"><br><p class="tb_title" ><b>{{title_pop.0}}</b></p></div>
+            <div style="width:144px;"><img src="{{ img_pop.1 }}" alt="img 1" style="height: 10rem; width:9rem"><br><p class="tb_title"><b>{{title_pop.1}}</b></p></div>
+            <div><img src="{{ img_pop.2 }}" alt="img 1" style="height: 10rem; width:9rem"><br><p class="tb_title"><b>{{title_pop.2}}</b></p></div>
+            <div><img src="{{ img_pop.3 }}" alt="img 1" style="height: 10rem; width:9rem"><br><p class="tb_title"rder-radius:20px;"><b>{{title_pop.3}}</b></p></div>
+            <div><img src="{{ img_pop.4 }}" alt="img 1" style="height: 10rem; width:9rem"><br><p class="tb_title"><b>{{title_pop.4}}</b></p></div>
+            
+          </div>
+        </div>
+        <div >
+          <h1 style="font: size 2rem; color:#b81024; margin-top:1vh" class="sub_head">Based on rating</h1>
+          <div class="trend_box" style="height: 52vh">
+            <div style="width:144px;"><img src="{{ Images_rates.0 }}" alt="img 1" style="height: 10rem; width:9rem"><br><p class="tb_title" ><b>{{title_rate.0}}</b></p><div class="tb_rating"> <b> {{ratings.0}} </b> </div></div>
+            <div style="width:144px;"><img src="{{ Images_rates.1 }}" alt="img 1" style="height: 10rem; width:9rem"><br><p class="tb_title"><b>{{title_rate.1}}</b></p><div class="tb_rating"> <b> {{ratings.1}} </b> </div></div>
+            <div style="width:144px;"><img src="{{ Images_rates.2 }}" alt="img 1" style="height: 10rem; width:9rem"><br><p class="tb_title"><b>{{title_rate.2}}</b></p><div class="tb_rating"> <b> {{ratings.2}} </b> </div></div>
+            <div style="width:144px;"><img src="{{ Images_rates.3 }}" alt="img 1" style="height: 10rem; width:9rem"><br><p class="tb_title""><b>{{title_rate.3}}</b></p><div class="tb_rating"> <b> {{ratings.3}} </b> </div></div>
+            <div style="width:144px;"><img src="{{ Images_rates.4 }}" alt="img 1" style="height: 10rem; width:9rem"><br><p class="tb_title"><b>{{title_rate.4}}</b></p><div class="tb_rating"> <b> {{ratings.4}} </b> </div></div>
+            
+          </div>
+        </div>
+      </div>
+      <div id="sec3">
+        <h1 id="head3">
+          Authors
+          <hr />
+        </h1>
+        <h1 style="font: size 2rem; color:#b81024; margin-top:1vh" class="sub_head">With most books</h1>
+        <div class="trend_box" style="align-items:center;height:40vh">
+          <div class="card">{{values.0}} <br><b>{{count.0}}</b></div>
+          <div class="card">{{values.1}} <br><b>{{count.1}}</b></div>
+          <div class="card">{{values.2}} <br><b>{{count.2}}</b></div>
+          <div class="card">{{values.3}} <br><b>{{count.3}}</b></div>
+          <div class="card">{{values.4}} <br><b>{{count.4}}</b></div>
+        </div>
+
+        <h1 style="font: size 2rem; color:#b81024; margin-top:1vh" class="sub_head">With highest rating</h1>
+        <div class="trend_box" style="align-items:center;height:40vh">
+          <div class="card">{{auth.0}} <br><b>4.71</b></div>
+          <div class="card">Neil Gaiman <br><b>{{rate.1}}</b></div>
+          <div class="card">Chris Bachalo <br><b>{{rate.1}}</b></div>
+          <div class="card">Michael Zulli <br><b>{{rate.1}}</b></div>
+          <div class="card">Kelly Jones  <br><b>{{rate.1}}</b></div>
+        </div>
+      </div>
+      <div id="sec4">
+        <h1 id="head4">
+          Distribution of Users
+          <hr />
+        </h1>
+        <div style="display: flex">
+          <div class="g1-1" style="height:265px;">
+            <canvas id="myChart2"></canvas>
+          </div>
+          <div class="g1-1" style="height:265px;">
+            <canvas id="myChart3"></canvas>
+          </div>
+        </div>
+        <div style="display: flex">
+          <div class="g1-1" style="height:265px;margin:0px;">
+            <canvas id="myChart4"></canvas>
+          </div>
+          <div class="g1-1" style="height:265px;margin:0px;">
+            <canvas id="myChart5"></canvas>
+          </div>
+        </div>
+        
+          
+      </div>
+      <div id="sec5">
+        <h1 id="head5">
+          Book and Their Author's Details 
+          <hr />
+        </h1>
+        <form action="" method="POST">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <input type="Submit" name="submit" value="Submit"/>
+        </form>
+          
+          {% if submitbutton == "Submit" %} 
+          <div class="trend_box" style="justify-content:space-evenly">
+            <img src=" {{image.0}} " alt="img" style="border-radius: 10px;">
+            <div style="display: flex;flex-direction:column; justify-content:space-between;color: blanchedalmond;">
+              <h2>{{title.0}}</h2>
+              <h2>Author: {{author.0}}</h2>
+              <h2>Average Rating: {{average_rating.0}}</h2>
+              <h2>Language: {{language.0}}</h2>
+              <h2>Publishing Year: {{year.0}}</h2>
+              <h2>Total Rating counts: {{total_ratings.0}}</h2>
+            </div>
+          </div>
+          {% if authors_perf == 'Most Popular Books' %}
+          <h1 style="font: size 2rem; color:#b81024; margin-top:1vh" class="sub_head">Most Popular Books</h1>
+          <div class="trend_box">
+            <div style="text-align:center;width:150px;"><img src="{{img_popular.0}}" style="border-radius: 9px;"><br><p class="tb_title"><b>{{pop_title.0}}</b></p></div>
+            <div style="text-align:center;width:150px;"><img src="{{img_popular.1}}" style="border-radius: 9px;"><br><p class="tb_title"><b>{{pop_title.1}}</b></p></div>
+            <div style="text-align:center;width:150px;"><img src="{{img_popular.2}}" style="border-radius: 9px;"><br><p class="tb_title"><b>{{pop_title.2}}</b></p></div>
+            <div style="text-align:center;width:150px;"><img src="{{img_popular.3}}" style="border-radius: 9px;"><br><p class="tb_title"><b>{{pop_title.3}}</b></p></div>
+            <div style="text-align:center;width:150px;"><img src="{{img_popular.4}}" style="border-radius: 9px;"><br><p class="tb_title"><b>{{pop_title.4}}</b></p></div>
+          </div>
+          {% elif authors_perf == 'Highest Rated Books' %}
+          <h1 style="font: size 2rem; color:#b81024; margin-top:1vh" class="sub_head">Highest Rated Books</h1>
+          <div class="trend_box" style="">
+            <div style="text-align:center;width:150px;"><img src="{{img_rating.1}}" style="border-radius: 9px;"><br><p class="tb_title"><b >{{rev_title.1}}</b></p></div>
+            <div style="text-align:center;width:150px;"><img src="{{img_rating.0}}" style="border-radius: 9px;"><br><p class="tb_title"><b >{{rev_title.0}}</b></p></div>
+            <div style="text-align:center;width:150px;"><img src="{{img_rating.2}}" style="border-radius: 9px;"><br><p class="tb_title"><b >{{rev_title.2}}</b></p></div>
+            <div style="text-align:center;width:150px;"><img src="{{img_rating.3}}" style="border-radius: 9px;"><br><p class="tb_title"><b >{{rev_title.3}}</b></p></div>
+            <div style="text-align:center;width:150px;"><img src="{{img_rating.4}}" style="border-radius: 9px;"><br><p class="tb_title"><b >{{rev_title.4}}</b></p></div>
+          </div>
+          {% elif authors_perf == 'Over The Year Performance' %}
+          <h1 style="font: size 2rem; color:#b81024; margin-top:1vh" class="sub_head">Over The Year Performance</h1>
+          
+          <div class="g1-1" style="height:265px;margin-top: 2vh;">
+            <canvas id="myChart6"></canvas>
+          </div>
+          {% endif %}
+          {% endif %}
+          
+      </div>
+      <div id="sec6">
+        <h1 id="head6">
+          Sentiment Analysis 
+          <hr />
+        </h1>
+        <h1 style="font: size 2rem; color:#b81024; margin-top:1vh" class="sub_head">Polarity and Subjectivity of the Reviews</h1>
+        <div style="display: flex; justify-content:center">
+        {% autoescape off %}
+  {{ plt_div }}
+  {% endautoescape %}
+</div>
+<h1 style="font: size 2rem; color:#b81024; margin-top:1vh" class="sub_head">Ratio of Reviews</h1>
+<div style="display: flex; justify-content:center">
+  {% autoescape off %}
+{{ plt_div1 }}
+{% endautoescape %}
+</div>
+      </div>
+    </div>
+{% block script %}{%endblock%}
+
+  </body>
+</html>

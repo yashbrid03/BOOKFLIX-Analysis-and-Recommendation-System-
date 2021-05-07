@@ -1,0 +1,231 @@
+{% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"/>
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0%;
+            margin: 0%;
+            box-sizing: border-box;
+        }
+        .slider{
+            position: absolute;
+            display: flex;
+            top: 50%;
+            left: 50%;
+            background-color: black;
+            height: 60%;
+            width: 100%;
+            transform: translate(-50%,-50%);
+        }
+        section{
+            position: relative;
+            display: flex;
+            height: 100vh;
+        }
+        .logo{
+            width:8%;
+            height: auto;
+            position: absolute;
+            top: 3%;
+            left: 3%;
+            transform: translate(-3%,-3%);
+        }
+        .logo-big{
+            position:absolute;
+            width:40%;
+            height: auto;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%,-20%);
+        }
+        .menu{
+            position: absolute;
+            display: flex;
+            width: 22vw;
+            justify-content: space-between;
+            top:4%;
+            right: 3%;
+            list-style-type: none;
+            
+        }
+        a{
+            color: white;
+            text-decoration: none;
+            font-family: "Poppins", sans-serif;
+            font-weight: 900;
+            font-size: 1.2em;
+        }
+        a:hover{
+            text-decoration: underline;
+        }
+        .book{
+            position: absolute;
+            width: 40%;
+            height: auto;
+            left: 50%;
+            top: 70%;
+            transform: translate(-50%,-70%); 
+        }
+        .quote{
+            font-family: "Poppins", sans-serif;
+            position: absolute;
+            left: 50%;
+            top: 85%;
+            transform: translateX(-50%);
+            text-align: right;
+            color: blanchedalmond;
+        }
+        .about-us{
+            font-family: "Poppins", sans-serif;
+            position: absolute;
+            left: -2%;
+            top: 75%;
+            font-size: 1.5em;
+            transform: rotate(-90deg);
+            color: blanchedalmond;
+        }
+        .social-media{
+            position: absolute;
+            height: 40vh;
+            justify-content: space-evenly;
+            display: flex;
+            flex-direction: column;
+            font-size: 30px;
+            color: blanchedalmond;
+            right: 3%;
+            top:60%
+        }
+        .section2{
+            background-color: black;
+            display: block;
+        }
+        .about_head{
+            font-family: "Poppins", sans-serif;
+            font-size: 4em;
+            font-weight: 900; 
+            color: blanchedalmond;
+            margin-left: 13%;
+            padding-top: 2.5%;
+        }
+
+        .about_p{
+            width:40vw;
+            font-family: "Poppins", sans-serif;
+            font-size: 1.1em;
+            color: blanchedalmond;
+            margin-top:0%;
+        }
+        .about_img{
+            width: auto;
+            height: 75vh;
+            border-radius: 200px 200px 0px 0px;
+            margin-top: -4%;
+            z-index: 2;
+        }
+
+        #circ_container {
+            position: absolute;
+            width: 13%;
+            top: 300px;
+            left: 68%;
+            transform: translateX(-68%);
+            z-index: 3;
+          }
+          
+          #circ_container2 {
+            position: absolute;
+            width: 13%;
+            top: 300px;
+            left: 68%;
+            transform: translateX(-68%);
+          }
+          
+          #circle {
+            -webkit-text-stroke: 1px white;
+            color: transparent;
+            font-size: 50px;
+            font-weight: 900;
+            transition: all 0.5s linear;
+          }
+          
+          #circle2 {
+            color: white;
+            font-size: 50px;
+            font-weight: 900;
+            transition: all 0.5s linear;
+          }
+    </style>
+</head>
+<body>
+    <section>
+        <div class="slider">
+            <img src="{% static 'images/logo.png' %} " class="logo all"></div>
+            <div >
+                <ul class="menu all">
+                    <li><a href="{% url 'index' %}">Analysis</a></li>
+                    <li><a href="{% url 'recommend' %}">Recommendation</a></li>
+                </ul>
+            </div>
+            <img src="{% static 'images/logo.png' %}" class="logo-big">
+            <img src="{% static 'images/book.png' %}" class="book">
+            <p class="quote">A room without book is like a body without a soul.<br>-CICERO
+            </p>
+            <p class="about-us"> <- About us</p>
+            <div class="social-media">
+                <a href="#"><i class="fab fa-instagram sm1"></i></a>
+                <a href="#"><i class="fab fa-twitter sm1"></i></a>
+                <a href="#"><i class="fab fa-facebook sm1"></i></a>
+            </div>
+        </div>
+    </section>
+    <section class="section2">
+        <h1 class="about_head">About Us</h1>
+        <div style="display: flex;justify-content:space-evenly;margin-top:1%">
+            
+        <p class="about_p" align="justify">BOOKFLIX is Analysis and Recommender System made in Python. It provides Sentiment Analysis and Deep Analysis on Books, Authors and Users dataset and also has a Recommendation system. There are two types of Recommender system, Out of them one is Content Based System and other one is collaborative System. You just have to select a book you have readed and then it will recommend you a book </p>
+        <img src="{% static 'images/about_book.jpg' %}" class="about_img">
+        <div id="circ_container"><p id="circle">BOOKFLIX BOOKFLIX </p></div>
+        <div id="circ_container2"><p id="circle2">BOOKFLIX BOOKFLIX </p></div>
+    </div>
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js" integrity="sha512-DkPsH9LzNzZaZjCszwKrooKwgjArJDiEjA5tTgr3YX4E6TYv93ICS8T41yFHJnnSmGpnf0Mvb5NhScYbwvhn2w==" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TimelineMax.min.js" integrity="sha512-0xrMWUXzEAc+VY7k48pWd5YT6ig03p4KARKxs4Bqxb9atrcn2fV41fWs+YXTKb8lD2sbPAmZMjKENiyzM/Gagw==" crossorigin="anonymous"></script>
+        <script src="/static/javascript/circletype.min.js"></script>
+    <script>
+        const slider = document.querySelector('.slider');
+        const menu = document.querySelector('.menu');
+        const logo = document.querySelector('.logo');
+        const logo_big = document.querySelector('.logo-big');
+        const book = document.querySelector('.book');
+        const quote = document.querySelector('.quote');
+        const about_us = document.querySelector('.about-us');
+        const sm = document.querySelector('.social-media');
+        const t1 = new TimelineMax();
+        t1.fromTo(slider, 1, { height: "0%" }, { height: "100%", ease: Power2.easeIn })
+        .fromTo(book, 1.3, {left: "-100%" }, { left: "50%", ease: Power2.easeInOut })
+        .fromTo(logo, 1.5, {opacity: "0" }, { opacity: "1", ease: Power2.easeInOut })
+        .fromTo(menu, 1.5, {opacity: "0" }, { opacity: "1", ease: Power2.easeInOut },"-=1.5")
+        .fromTo(quote, 1.5, {opacity: "0" }, { opacity: "1", ease: Power2.easeInOut },"-=1.5")
+        .fromTo(about_us, 1.5, {opacity: "0" }, { opacity: "1", ease: Power2.easeInOut },"-=1.5")
+        .fromTo(sm, 1.5, {opacity: "0" }, { opacity: "1", ease: Power2.easeInOut },"-=1.5")
+        .fromTo(logo_big, 1.5, {opacity: "0" }, { opacity: "1", ease: Power2.easeInOut },"-=1.5");
+        
+        new CircleType(document.getElementById("circle"));
+new CircleType(document.getElementById("circle2"));
+
+const circle1 = document.getElementById("circle");
+const circle2 = document.getElementById("circle2");
+window.addEventListener("scroll", function () {
+  circle1.style.transform = "rotate(" + window.pageYOffset + "deg)";
+  circle2.style.transform = "rotate(" + window.pageYOffset + "deg)";
+});
+    </script>
+</body>
+</html>

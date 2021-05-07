@@ -1,0 +1,149 @@
+{% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: black;
+        }
+        .header{
+            width: 70%;
+            height:20vh;
+            /*margin: 3% 0% 3% 20%; top      bottom */
+            margin-top: 3%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: "Poppins", sans-serif;
+            background-color: #b81024;
+            box-shadow: 0 0 20px -1px rgb(238, 72, 72, 0.50);
+            color: white;
+            border-radius: 20px;
+        }
+        .container{
+            width: 80%;
+            margin-left: 10%;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        label{
+            font-family: "Poppins", sans-serif;
+            font-size: 1.5em;
+            font-weight: 600;
+            color: blanchedalmond;
+        }
+        
+        select,input{
+            height: 5vh;
+            font-family: "Poppins", sans-serif;
+            font-size: medium;
+            font-weight: 900;
+            background-color: blanchedalmond;
+            border-radius: 3px;
+            outline: none;
+        }
+        
+        select{
+            width:70%;  
+        }
+        
+        input{
+            margin-top: 11px;
+            margin-left: 30px;
+            width:10vw;
+            border: none;
+            cursor: pointer;
+        }
+        
+        form{
+            margin-top: 3vh;
+            width: 70%;
+            display: flex;
+        }
+        
+        form>p{
+            display: flex;
+           justify-content: space-between;
+            margin-top: 2vh;
+            width:100%;
+        }
+        .recommend_contain{
+            width: 70%;
+            height: 15vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: "Poppins", sans-serif;
+            background-color: #b81024;
+            color: white;
+            border-radius: 20px;
+            margin-top: 2%;
+            box-shadow: 0 0 20px -1px rgb(238, 72, 72, 0.50);
+        }
+
+        .card-container{
+            width: 70%;
+            display: flex;
+            margin-top: 2%;
+            height:45vh; 
+    justify-content:space-between;
+    padding:3vw;
+    border-radius:25px;
+    background-color:rgb(31, 41, 55); 
+    box-shadow: 0 0px 20px -1px rgba(42, 55, 73, 0.5);
+        }
+        .tb_title{
+            color:white;
+            font-family: "Poppins", sans-serif;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+    <div class="header"><h1>Recommendation System</h1></div>
+    
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="Submit" name="submit" value="Submit"/>
+        
+    </form>
+    
+    
+    {% if submitbutton == "Submit" %}
+    <div class="recommend_contain">
+        <h1>Recommendation</h1>
+    </div>
+    <div class="card-container">
+        <div style="text-align:center;width:150px;"><img src="{{Images_array.0}}" style="border-radius: 9px;"><br><p class="tb_title"><b >{{captions.0}}</b></p></div>
+        <div style="text-align:center;width:150px;"><img src="{{Images_array.1}}" style="border-radius: 9px;"><br><p class="tb_title"><b >{{captions.1}}</b></p></div>
+        <div style="text-align:center;width:150px;"><img src="{{Images_array.2}}" style="border-radius: 9px;"><br><p class="tb_title"><b >{{captions.2}}</b></p></div>
+        <div style="text-align:center;width:150px;"><img src="{{Images_array.3}}" style="border-radius: 9px;"><br><p class="tb_title"><b >{{captions.3}}</b></p></div>
+        <div style="text-align:center;width:150px;"><img src="{{Images_array.4}}" style="border-radius: 9px;"><br><p class="tb_title"><b >{{captions.4}}</b></p></div>
+    </div>
+    <div class="recommend_contain">
+        <h1>User's also liked</h1>
+    </div>
+    <div class="card-container">
+        <div style="text-align:center;width:150px;"><img src="{{img_list.0}}" style="border-radius: 9px; width:70%;"><br><p class="tb_title"><b >{{rec.0}}</b></p></div>
+        <div style="text-align:center;width:150px;"><img src="{{img_list.1}}" style="border-radius: 9px;width:70%;"><br><p class="tb_title"><b >{{rec.1}}</b></p></div>
+        <div style="text-align:center;width:150px;"><img src="{{img_list.2}}" style="border-radius: 9px;width:70%;"><br><p class="tb_title"><b >{{rec.2}}</b></p></div>
+        <div style="text-align:center;width:150px;"><img src="{{img_list.3}}" style="border-radius: 9px;width:70%;"><br><p class="tb_title"><b >{{rec.3}}</b></p></div>
+        <div style="text-align:center;width:150px;"><img src="{{img_list.4}}" style="border-radius: 9px;width:70%;"><br><p class="tb_title"><b >{{rec.4}}</b></p></div>
+    </div>
+    {% endif %}
+</div>
+</body>
+</html>
