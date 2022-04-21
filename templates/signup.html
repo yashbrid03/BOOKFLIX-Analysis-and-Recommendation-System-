@@ -1,0 +1,144 @@
+{% load static %}
+{% if message %}
+<script>
+    alert('{{ message }}');
+</script>
+{% endif %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"/>
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0%;
+            margin: 0%;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+        .container{
+            display: flex;
+            flex-direction: row;
+            height: 100vh;
+            width:100vw;
+        }
+
+        .left{
+            width: 50vw;
+            background-color: #FFE6C9;
+            height: 100vh;
+        }
+
+        .right{
+            width: 50vw;
+            background-color: #332A2A;
+            height: 100vh;
+        }
+
+        .headline{
+            position: absolute;
+            top: 85%;
+            left: 17%;
+            transform: translate(-17%, -85%);
+        }
+        .headline2{
+            color: #FFE6C9;
+            width: 30%;
+            text-align: center;
+            position: absolute;
+            top: 85%;
+            left: 87%;
+            transform: translate(-87%, -85%);
+        }
+        hell{
+            color: #E73232;
+        }
+        .red{
+            color: #E73232;
+        }
+        .center{
+            position: absolute;
+            top: 50%;
+            left: 85%;
+            transform: translate(-85%, -50%);
+        }
+        .heading{
+            font-size: 2em;
+        }
+
+        .desc{
+            font-size: 1.1em;
+            text-align: center;
+        }
+        label{
+            font-size: 1.2em;
+        }
+        input{
+            outline: none;
+            width: 24vw;
+            height: 5vh;
+        }
+        .inputb{
+            width: 9vw;
+            border: none;
+            color: white;
+            background-color: #E73232;
+        }
+        .vector{
+            margin-left: 15%;
+            margin-top: 10%;
+            
+        }
+
+    </style>
+</head>
+<body>
+    <section>
+        <div class="container">
+            <div class="left" >
+                <div>
+                    <img src="{% static 'images/signup_vector.png' %}" class="vector">
+                </div>
+                <div class="headline"><b>Enjoy millions of book from different genre</b></div>
+            </div>
+            <div class="right" >
+                <div class="center">
+                    <p class="red heading"><b>Login to your Account</b></p>
+                    <p class="red " style="font-size: 0.9em;"><b>Order some books to read</b></p>
+                    <br><br>
+                    <p class="red desc" style="text-align: left;">-----------Signup with Email-----------</p>
+                    <br>
+                    <form action="/postsignup/" method="post">
+                         {% csrf_token %} 
+                        <label class="red">Name</label><br>
+                        <input type="text" name="name">
+                        <br><br>
+                        <label class="red">Email       </label><br>
+                        <input  type="email" name="email"><br><br>
+                        <label class="red">Password</label><br>
+                        <input type="password" name="pass">
+                        <br><br>
+                        <div style="text-align: center;">
+                            <input class="inputb" type="submit" value="Signup">
+                        </div>
+                    </form>
+                </div>
+                <div class="headline2">
+                    Already Registered ? <a href="{% url 'login' %}"><hell>Login<hell></a>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js" integrity="sha512-DkPsH9LzNzZaZjCszwKrooKwgjArJDiEjA5tTgr3YX4E6TYv93ICS8T41yFHJnnSmGpnf0Mvb5NhScYbwvhn2w==" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TimelineMax.min.js" integrity="sha512-0xrMWUXzEAc+VY7k48pWd5YT6ig03p4KARKxs4Bqxb9atrcn2fV41fWs+YXTKb8lD2sbPAmZMjKENiyzM/Gagw==" crossorigin="anonymous"></script>
+        <!-- <script src="/static/javascript/circletype.min.js"></script> -->
+    <script>
+        
+    </script>
+</body>
+</html>

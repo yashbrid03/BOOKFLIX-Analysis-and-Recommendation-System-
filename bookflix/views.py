@@ -1,6 +1,9 @@
+from distutils.command.config import config
+import email
+from email import message
 from django.shortcuts import render
 from django.http import HttpResponse
-from .forms import UserForm
+from .forms import UserForm, UserForm3
 from .forms import UserForm2
 import pandas as pd
 import numpy as np
@@ -10,9 +13,71 @@ import plotly.figure_factory as ff
 import plotly.graph_objs as go
 import pickle
 from scipy.sparse import csr_matrix
+import pyrebase
+from django.contrib import auth
 
 
-# Create your views here.
+isloggedin = 0
+config = {
+    'apiKey': "AIzaSyCdyoVMbeElST181xN76K-H6SgbSI7IL4c",
+    'authDomain': "bookflix-db.firebaseapp.com",
+    'databaseURL': "https://bookflix-db-default-rtdb.firebaseio.com/",
+    'projectId': "bookflix-db",
+    'storageBucket': "bookflix-db.appspot.com",
+    'messagingSenderId': "84904382891",
+    'appId': "1:84904382891:web:4f7172a3b9e95f91e5c2ee"
+}
+
+firebase = pyrebase.initialize_app(config)
+authe = firebase.auth()
+database = firebase.database()
+
+
+def login(request):
+    return render(request, "login.html")
+
+
+def postlogin(request):
+    email = request.POST.get('email')
+    pasw = request.POST.get('pass')
+    try:
+        # if there is no error then signin the user with given email and password
+        user = authe.sign_in_with_email_and_password(email, pasw)
+
+    except:
+        message = "Invalid Credentials!!Please ChecK your Data"
+        return render(request, "login.html", {"message": message})
+    global isloggedin
+    isloggedin = 1
+    session_id = user['idToken']
+    request.session['uid'] = str(session_id)
+    return render(request, "home.html", {"isloggedin": isloggedin})
+
+
+def logout(request):
+    auth.logout(request)
+    global isloggedin
+    isloggedin = 0
+    return render(request, 'login.html', {"isloggedin": isloggedin})
+
+
+def signup(request):
+    return render(request, "signup.html")
+
+
+def postsignup(request):
+    name = request.POST.get('name')
+    email = request.POST.get('email')
+    passw = request.POST.get('pass')
+    try:
+        user = authe.create_user_with_email_and_password(email, passw)
+    except:
+        message = "Unable to create account"
+        return render(request, "signup.html", {message})
+    uid = user['localId']
+    data = {"name": name, "status": "1"}
+    database.child("users").child(uid).child("details").set(data)
+    return render(request, "login.html")
 
 
 def load_data(nrows):
@@ -172,8 +237,132 @@ def index(request):
     return render(request, 'index.html', context)
 
 
+def shopping(request):
+    global isloggedin
+    if (isloggedin == 0):
+        message = "Please login first to do shopping"
+        return render(request, 'login.html', {"message": message})
+    else:
+        books = load_data(10000)
+        submitbutton = request.POST.get("submit")
+
+        field = ''
+        title, author, language, average_rating, total_ratings, year, image,  = [
+        ], [], [], [], [], [], []
+        form = UserForm3()
+        if request.method == 'POST':
+            if 'submit' in request.POST:
+                form = UserForm3(request.POST)
+                if form.is_valid():
+                    field = form.cleaned_data.get("field")
+                    authors_perf = form.cleaned_data.get("authors_perf")
+                    metadata = books[books['original_title'] == field]
+                    title = metadata['original_title'].values.tolist()
+                    author = metadata['authors'].values.tolist()
+                    language = metadata['language_code'].values.tolist()
+                    average_rating = metadata['average_rating'].values.tolist()
+                    total_ratings = metadata['ratings_count'].values.tolist()
+                    year = metadata['original_publication_year'].values.tolist()
+                    image = metadata['image_url'].values.tolist()
+
+        context = {
+            'form': form,   'submitbutton': submitbutton,   'title': title, 'author': author,
+            'language': language, 'average_rating': average_rating, 'total_ratings': total_ratings, 'year': year, 'image': image}
+        return render(request, "shopping.html", context)
+
+
+def postshopping(request):
+    import time
+    from datetime import datetime, timezone
+    import pytz
+
+    tz = pytz.timezone('Asia/Kolkata')
+    time_now = datetime.now(timezone.utc).astimezone(tz)
+    millis = int(time.mktime(time_now.timetuple()))
+    aname = request.POST.get('author')
+    title = request.POST.get('title')
+    price = request.POST.get('price')
+    img = request.POST.get('img')
+    idtoken = request.session['uid']
+    a = authe.get_account_info(idtoken)
+    a = a['users']
+    a = a[0]
+    a = a['localId']
+    data = {
+        "title": title,
+        "author": aname,
+        "price": price,
+        "img": img
+    }
+    database.child('users').child(a).child('orders').child(millis).set(data)
+    timestamps = database.child('users').child(
+        a).child('orders').shallow().get().val()
+    lis_time = []
+    for i in timestamps:
+        lis_time.append(i)
+    lis_time.sort(reverse=True)
+    print(lis_time)
+    authorname, price, Titlename, image = [], [], [], []
+    for i in lis_time:
+        aname = database.child('users').child(
+            a).child('orders').child(i).child('author').get().val()
+        img = database.child('users').child(
+            a).child('orders').child(i).child('img').get().val()
+        p = database.child('users').child(a).child(
+            'orders').child(i).child('price').get().val()
+        title = database.child('users').child(
+            a).child('orders').child(i).child('title').get().val()
+        authorname.append(aname)
+        price.append(p)
+        Titlename.append(title)
+        image.append(img)
+
+    mylist = zip(authorname, price, Titlename, image)
+    context = {'list': mylist}
+    return render(request, 'orders.html', context)
+
+
+def orders(request):
+    global isloggedin
+    if (isloggedin == 0):
+        message = "Please login first to view orders"
+        return render(request, 'login.html', {"message": message})
+    else:
+        idtoken = request.session['uid']
+        a = authe.get_account_info(idtoken)
+        a = a['users']
+        a = a[0]
+        a = a['localId']
+        timestamps = database.child('users').child(
+            a).child('orders').shallow().get().val()
+        lis_time = []
+        for i in timestamps:
+            lis_time.append(i)
+        lis_time.sort(reverse=True)
+        print(lis_time)
+        authorname, price, Titlename, image = [], [], [], []
+        for i in lis_time:
+            aname = database.child('users').child(
+                a).child('orders').child(i).child('author').get().val()
+            img = database.child('users').child(
+                a).child('orders').child(i).child('img').get().val()
+            p = database.child('users').child(a).child(
+                'orders').child(i).child('price').get().val()
+            title = database.child('users').child(
+                a).child('orders').child(i).child('title').get().val()
+            authorname.append(aname)
+            price.append(p)
+            Titlename.append(title)
+            image.append(img)
+
+        mylist = zip(authorname, price, Titlename, image)
+        context = {'list': mylist}
+        return render(request, 'orders.html', context)
+
+
 def Home(request):
-    return render(request, 'home.html')
+    print(isloggedin)
+    return render(request, 'home.html', {'isloggedin': isloggedin})
 
 
 def recommend(request):
@@ -216,7 +405,7 @@ def recommend(request):
         # Return the top 5 most similar books
         return list(content_data['image_url'].iloc[book_indices])
 
-    # collaborative recommendation
+    # collaborative recommendation function remaining
     book_pivot = users.pivot_table(
         columns='user_id', index='book_title', values='rating')
     book_pivot.fillna(0, inplace=True)
@@ -228,7 +417,6 @@ def recommend(request):
         distances, suggestions = loaded_model.kneighbors(
             book_pivot.iloc[book_id, :].values.reshape(1, -1))
         return book_pivot.index[suggestions]
-
     submitbutton = request.POST.get("submit")
     select5 = ''
     Images_array = []
@@ -252,13 +440,13 @@ def recommend(request):
                                  book]['average_rating'].values[0]
                     captions.append(name)
                     ratings.append(rate)
+                # end
                 book = reco(select5)
                 rec = book.tolist()
                 rec = rec[0]
                 for i in rec:
                     url = users[users['book_title'] == i]['img_l'].values[0]
                     img_list.append(url)
-
     context = {'form': form, 'submitbutton': submitbutton, 'Images_array': Images_array,
                'captions': captions, 'img_list': img_list, 'rec': rec}
 

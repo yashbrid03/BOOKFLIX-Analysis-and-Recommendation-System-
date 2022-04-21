@@ -47,3 +47,7 @@ class UserForm(forms.Form):
 
 class UserForm2(forms.Form):
     select5 = forms.ChoiceField(label='Select Book', choices=get_list())
+
+
+class UserForm3(forms.Form):
+    field = forms.ChoiceField(label='', choices=get_my_choices())

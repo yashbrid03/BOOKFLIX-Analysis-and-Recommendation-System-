@@ -1,0 +1,86 @@
+{% load static %} 
+<html>
+  <head>
+    <title>{% block title %}{% endblock %}</title>
+    <!-- <link href="{% static 'styles/style.css' %}" rel="stylesheet" /> -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://use.fontawesome.com/2f23960495.js"></script>
+    <style>
+      body{
+        background-color: #0f0f0f;
+      }
+      #main{
+        margin: auto;
+        text-align: center;
+        width: 80%;
+        background-color:rgb(31, 41, 55);
+        padding:3vw;
+    border-radius:25px;
+      }
+       h1{
+        text-align: center;
+        color: #b81024;
+      }
+      select,input{
+    height: 5vh;
+    font-family: "Poppins", sans-serif;
+    font-size: medium;
+    font-weight: 900;
+    background-color: blanchedalmond;
+    width: 100%;
+    border-radius: 3px;
+    outline: none;
+}
+h2{
+  margin-top: 0;
+  margin-bottom: 5%;
+  padding: 0;
+}
+
+.trend_box{
+    display: flex; 
+    margin-top: 5%;
+    text-align: left;
+}
+
+a{
+            color: white;
+            text-decoration: none;
+            font-family: "Poppins", sans-serif;
+            font-weight: 900;
+            font-size: 1.2em;
+        }
+        a:hover{
+            text-decoration: underline;
+        }
+    </style>
+  </head>
+  <body>
+    <p style="text-align: end;margin-right:100px ;"><a href="{% url 'shopping' %}">Continue Shopping</a></p>
+    <div id="main">
+        
+        <h1 >
+          Your Orders
+          <hr />
+        </h1>
+        {% for a,b,c,d in list%}
+        <div class="trend_box" style="justify-content:space-evenly;">
+            <img src=" {{d}} " alt="img" style="border-radius: 10px;width:100px;">
+            <div style="display: flex;flex-direction:column;width:40vw; color: blanchedalmond;">
+              <h2>{{c}}</h2>
+              <h2>Author: {{a}}</h2>
+              <h2>Price: {{b}} Rs</h2>
+            </div>
+          </div>
+        {% endfor %}
+        
+          
+          
+      
+      
+    </div>
+{% block script %}{%endblock%}
+
+  </body>
+</html>

@@ -1,0 +1,97 @@
+{% load static %} 
+<html>
+  <head>
+    <title>{% block title %}{% endblock %}</title>
+    <!-- <link href="{% static 'styles/style.css' %}" rel="stylesheet" /> -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://use.fontawesome.com/2f23960495.js"></script>
+    <style>
+      body{
+        background-color: #0f0f0f;
+      }
+      #main{
+        margin: auto;
+        text-align: center;
+        width: 80%;
+        background-color:rgb(31, 41, 55);
+        padding:3vw;
+    border-radius:25px;
+      }
+       h1{
+        text-align: center;
+        color: #b81024;
+      }
+      select,input{
+    height: 5vh;
+    font-family: "Poppins", sans-serif;
+    font-size: medium;
+    font-weight: 900;
+    background-color: blanchedalmond;
+    width: 100%;
+    border-radius: 3px;
+    outline: none;
+}
+h2{
+  margin-top: 0;
+  margin-bottom: 5%;
+  padding: 0;
+}
+
+input{
+    width:10vw;
+    border: none;
+    cursor: pointer;
+}
+.trend_box{
+    display: flex; 
+    margin-top: 5%;
+    text-align: left;
+}
+.buy{
+  text-align: center;
+}
+    </style>
+  </head>
+  <body>
+    <div id="main">
+        <h1 >
+          Select the Book to Buy
+          <hr />
+        </h1>
+        <form action="" method="POST">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <input type="Submit" name="submit" value="Submit"/>
+        </form>
+          
+          {% if submitbutton == "Submit" %} 
+          <div class="trend_box" style="justify-content:space-evenly;">
+            <img src=" {{image.0}} " alt="img" style="border-radius: 10px;width:300px;">
+            <div style="display: flex;flex-direction:column;width:40vw; color: blanchedalmond;">
+              <h2>{{title.0}}</h2>
+              <h2>Author: {{author.0}}</h2>
+              <h2>Average Rating: {{average_rating.0}}</h2>
+              <h2>Language: {{language.0}}</h2>
+              <h2>Publishing Year: {{year.0}}</h2>
+              <h2>Total Rating counts: {{total_ratings.0}}</h2>
+              <h2>Price: 999 Rs</h2>
+              <form action="/postshopping/" method="post">
+                {% csrf_token %}
+                <input type="hidden" id="title" name="title" value="{{title.0}}">
+                <input type="hidden" id="author" name="author" value="{{author.0}}">
+                <input type="hidden" id="price" name="price" value=999>
+                <input type="hidden" id="img" name="img" value={{image.0}}>
+                <input type="submit" name="buy" value="Buy" class="buy"></input>
+              </form>
+              
+            </div>
+          </div>
+          {% endif %}
+      
+      
+    </div>
+{% block script %}{%endblock%}
+
+  </body>
+</html>
